@@ -14,6 +14,9 @@ plain server can build on it.
 This is our entry for the National AI Innovation Challenge 2026, *Build with
 N-ATLAS*, under **Developer Infrastructure**.
 
+Once the model has been imported (a single command, shown under
+[Quick start](#quick-start)), this is all the code it takes:
+
 ```python
 from oragon import Engine, Oragon, Settings, system, user
 
@@ -87,6 +90,9 @@ hour on a home connection and is done once.
 export HF_TOKEN=hf_your_token_here
 oragon import NCAIR1/N-ATLaS
 ```
+
+The examples load the model by the name `N-ATLaS`. They do not download it,
+so this step has to come before any of them.
 
 **4. Run it.**
 

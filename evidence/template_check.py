@@ -14,11 +14,15 @@ check on the opening words, not a judgement of the whole answer, so the
 answers themselves are saved for a Hausa speaker to read.
 
 Our result with Oragon 0.1.2: the word is defined in 10 of 10 runs.
+
+N-ATLaS must be on this machine first: `oragon import NCAIR1/N-ATLaS`
+(see docs/setup.md).
 """
 
 import argparse
 import json
 import platform
+import sys
 
 import oragon
 from oragon import Engine, Oragon, Settings, system, user
@@ -30,6 +34,12 @@ SYSTEM = (
 )
 QUESTION = "menene ake nufi da gwagwarmaya"
 SEEDS = range(10)
+NOT_IMPORTED = (
+    "N-ATLaS is not on this machine yet. Import it once with:\n\n"
+    "    oragon import NCAIR1/N-ATLaS\n\n"
+    "That needs a Hugging Face token with access to the model; "
+    "docs/setup.md has the steps."
+)
 
 
 def repeats_the_question(answer: str) -> bool:
@@ -41,7 +51,10 @@ def main() -> None:
     parser.add_argument("--save", metavar="FILE", help="also write every answer as JSON")
     args = parser.parse_args()
 
-    client = Oragon(engine=Engine.EMBEDDED, model=MODEL, cpu=True, warm_prompt=SYSTEM)
+    try:
+        client = Oragon(engine=Engine.EMBEDDED, model=MODEL, cpu=True, warm_prompt=SYSTEM)
+    except FileNotFoundError:
+        sys.exit(NOT_IMPORTED)
     answers = []
     try:
         for seed in SEEDS:

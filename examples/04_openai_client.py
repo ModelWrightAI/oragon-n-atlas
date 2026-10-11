@@ -1,6 +1,10 @@
 """Talk to N-ATLaS through the OpenAI client library.
 
-Start the server in one terminal:
+N-ATLaS must be on this machine first. Import it once (see docs/setup.md):
+
+    oragon import NCAIR1/N-ATLaS
+
+Then start the server in one terminal:
 
     oragon serve N-ATLaS
 

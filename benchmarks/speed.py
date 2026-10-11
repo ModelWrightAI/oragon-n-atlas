@@ -4,6 +4,9 @@
     python benchmarks/speed.py --gpu           # let the engine use a GPU if present
     python benchmarks/speed.py --save benchmarks/results/my-machine.json
 
+N-ATLaS must be on this machine first: `oragon import NCAIR1/N-ATLaS`
+(see docs/setup.md).
+
 Run it with nothing else heavy running: another program using the processor
 or the memory shows up directly in these numbers.
 """
@@ -14,6 +17,7 @@ import os
 import platform
 import statistics
 import subprocess
+import sys
 import time
 
 import oragon
@@ -25,6 +29,13 @@ SYSTEM = (
     "You are a friendly assistant and you are here to help."
 )
 SETTINGS = Settings(temperature=0.1, repeat_penalty=1.12, max_tokens=200, seed=0)
+
+NOT_IMPORTED = (
+    "N-ATLaS is not on this machine yet. Import it once with:\n\n"
+    "    oragon import NCAIR1/N-ATLaS\n\n"
+    "That needs a Hugging Face token with access to the model; "
+    "docs/setup.md has the steps."
+)
 
 QUESTIONS = {
     "hausa": "menene ake nufi da gwagwarmaya",
@@ -60,7 +71,10 @@ def main() -> None:
     parser.add_argument("--save", metavar="FILE", help="also write the results as JSON")
     args = parser.parse_args()
 
-    client = Oragon(engine=Engine.EMBEDDED, model=MODEL, cpu=not args.gpu, warm_prompt=SYSTEM)
+    try:
+        client = Oragon(engine=Engine.EMBEDDED, model=MODEL, cpu=not args.gpu, warm_prompt=SYSTEM)
+    except FileNotFoundError:
+        sys.exit(NOT_IMPORTED)
     rows = []
     try:
         # The engine starts on first use. One tiny request makes the load time

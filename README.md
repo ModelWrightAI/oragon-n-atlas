@@ -98,7 +98,7 @@ so this step has to come before any of them.
 **4. Run it.**
 
 ```sh
-git clone https://github.com/ModelWrightAI/oragon-n-atlas.git && cd oragon-n-atlas
+git clone https://github.com/OragonLabs/oragon-n-atlas.git && cd oragon-n-atlas
 python examples/01_chat.py
 ```
 

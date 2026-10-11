@@ -24,8 +24,10 @@ client.close()
   and owns. Nothing else needs to be running.
 - The model is loaded on the first request and stays loaded, so only the
   first request pays the 10 to 17 seconds of loading.
-- `client.close()` stops the engine. Use `try`/`finally`, as the examples do,
-  so it also stops when something goes wrong.
+- `client.close()` stops the engine. Call it once, after your last request,
+  not after each one: closing and reopening would load the model again every
+  time. Use `try`/`finally`, as the examples do, so the engine also stops
+  when something goes wrong.
 
 ## The settings N-ATLaS expects
 
@@ -89,6 +91,8 @@ history = [system(SYSTEM)]
 history.append(user("Sannu"))
 reply = client.chat.generate(model="N-ATLaS", messages=history, overflow="slide")
 history.append(assistant(reply.choices[0].message.content))
+
+client.close()  # once the conversation is over
 ```
 
 A conversation too long for the model raises `ContextOverflowError` before
@@ -144,6 +148,8 @@ reply = client.chat.completions.create(
     temperature=0.1,
 )
 print(reply.choices[0].message.content)
+
+client.close()  # closes the connection; the server keeps running
 ```
 
 With `curl`:

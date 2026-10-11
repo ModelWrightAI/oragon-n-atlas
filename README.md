@@ -32,6 +32,8 @@ reply = client.chat.generate(
     settings=Settings(temperature=0.1, repeat_penalty=1.12, max_tokens=400),
 )
 print(reply.choices[0].message.content)
+
+client.close()  # when you have no more requests: stops the engine
 ```
 
 ```text

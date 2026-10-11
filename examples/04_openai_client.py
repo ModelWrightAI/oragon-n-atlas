@@ -43,3 +43,6 @@ for event in stream:
     if event.choices and event.choices[0].delta.content:
         print(event.choices[0].delta.content, end="", flush=True)
 print()
+
+# Closes this program's connection. The server keeps running for other clients.
+client.close()

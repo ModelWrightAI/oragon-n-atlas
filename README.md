@@ -22,7 +22,7 @@ from oragon import Engine, Oragon, Settings, system, user
 
 client = Oragon(engine=Engine.EMBEDDED, model="N-ATLaS", cpu=True)
 
-reply = client.chat.generate(
+for chunk in client.chat.generate(
     model="N-ATLaS",
     messages=[
         system("you are a large language model trained by Awarri AI technologies. "
@@ -30,8 +30,10 @@ reply = client.chat.generate(
         user("menene ake nufi da gwagwarmaya"),
     ],
     settings=Settings(temperature=0.1, repeat_penalty=1.12, max_tokens=400),
-)
-print(reply.choices[0].message.content)
+    stream=True,  # show each word as it is written
+):
+    if isinstance(chunk, str):
+        print(chunk, end="", flush=True)
 
 client.close()  # when you have no more requests: stops the engine
 ```
@@ -114,7 +116,7 @@ packages; then leave `poetry run` off every command.
 
 | File | What it shows |
 |---|---|
-| [`examples/01_chat.py`](examples/01_chat.py) | One question, one answer |
+| [`examples/01_chat.py`](examples/01_chat.py) | One question, answered word by word as it is written |
 | [`examples/02_four_languages.py`](examples/02_four_languages.py) | Hausa, Yoruba, Igbo and English, streamed, with timings |
 | [`examples/03_terminal_chat.py`](examples/03_terminal_chat.py) | A conversation that remembers earlier turns |
 | [`examples/04_openai_client.py`](examples/04_openai_client.py) | The OpenAI client library talking to `oragon serve N-ATLaS` |

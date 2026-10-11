@@ -33,6 +33,14 @@ except FileNotFoundError:
     sys.exit(NOT_IMPORTED)
 history = [system(SYSTEM)]
 try:
+    # Load the model before the first prompt appears, so the first reply
+    # starts as quickly as every later one.
+    print("loading N-ATLaS...", flush=True)
+    client.chat.generate(
+        model=MODEL,
+        messages=[system(SYSTEM), user("hi")],
+        settings=Settings(max_tokens=1),
+    )
     while True:
         try:
             said = input("\nyou> ").strip()

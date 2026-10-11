@@ -1,9 +1,11 @@
-"""Ask N-ATLaS one question, on this machine.
+"""Ask N-ATLaS one question, on this machine, and watch the answer arrive.
 
     poetry run python examples/01_chat.py
     poetry run python examples/01_chat.py "Kedu ihe bụ ọdịnala ndị Igbo?"
 
-Nothing leaves the computer: the model runs inside this process's own engine.
+The answer is streamed: each word is shown as the model writes it, so you are
+reading within a second instead of waiting for the whole reply. Nothing leaves
+the computer: the model runs inside this process's own engine.
 
 N-ATLaS must be on this machine first. Import it once (see docs/setup.md):
 
@@ -38,11 +40,17 @@ try:
 except FileNotFoundError:
     sys.exit(NOT_IMPORTED)
 try:
-    reply = client.chat.generate(
+    # The model loads on the first request, which takes 10 to 17 seconds.
+    print("loading N-ATLaS...", flush=True)
+    for chunk in client.chat.generate(
         model=MODEL,
         messages=[system(SYSTEM), user(question)],
         settings=SETTINGS,
-    )
-    print(reply.choices[0].message.content)
+        stream=True,
+    ):
+        # Pieces of text arrive as strings; the last item is the full response.
+        if isinstance(chunk, str):
+            print(chunk, end="", flush=True)
+    print()
 finally:
     client.close()

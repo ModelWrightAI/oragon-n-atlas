@@ -117,7 +117,7 @@ Then ask it something:
 python examples/01_chat.py
 ```
 
-Every run spends its first 12 to 17 seconds loading the model before it
+Every run spends its first 10 to 17 seconds loading the model before it
 answers.
 
 ## Running with no internet

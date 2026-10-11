@@ -23,7 +23,7 @@ client.close()
 - `Engine.EMBEDDED` means the model runs in an engine this program starts
   and owns. Nothing else needs to be running.
 - The model is loaded on the first request and stays loaded, so only the
-  first request pays the 12 to 17 seconds of loading.
+  first request pays the 10 to 17 seconds of loading.
 - `client.close()` stops the engine. Use `try`/`finally`, as the examples do,
   so it also stops when something goes wrong.
 

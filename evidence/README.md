@@ -118,9 +118,9 @@ From [`benchmarks/speed.py`](../benchmarks/speed.py); our output is
 
 | | |
 |---|---|
-| Time to load the model | 12 to 17 seconds, once per run |
+| Time to load the model | 10 to 17 seconds, once per run |
 | Time to the first word | 0.2 to 0.7 seconds |
-| Writing speed | 14.0 tokens per second (mean of four questions) |
+| Writing speed | 14.2 tokens per second (mean of four questions) |
 
 ## 4. Answers in four languages
 

@@ -5,33 +5,33 @@
   "machine": "Darwin arm64",
   "processor": "Apple M4",
   "memory_gb": 16,
-  "load_s": 11.5,
-  "mean_tokens_per_s": 14.0,
-  "mean_first_word_s": 0.48,
+  "load_s": 10.2,
+  "mean_tokens_per_s": 14.2,
+  "mean_first_word_s": 0.38,
   "questions": [
     {
       "question": "hausa",
-      "first_word_s": 0.36,
+      "first_word_s": 0.26,
       "tokens": 136,
-      "tokens_per_s": 14.8
+      "tokens_per_s": 14.5
     },
     {
       "question": "yoruba",
-      "first_word_s": 0.61,
+      "first_word_s": 0.63,
       "tokens": 128,
-      "tokens_per_s": 12.6
+      "tokens_per_s": 14.6
     },
     {
       "question": "igbo",
-      "first_word_s": 0.71,
+      "first_word_s": 0.41,
       "tokens": 195,
-      "tokens_per_s": 14.0
+      "tokens_per_s": 13.3
     },
     {
       "question": "english",
-      "first_word_s": 0.23,
+      "first_word_s": 0.2,
       "tokens": 49,
-      "tokens_per_s": 14.5
+      "tokens_per_s": 14.6
     }
   ]
 }

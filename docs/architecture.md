@@ -39,7 +39,7 @@ flowchart TD
 1. **Your program** calls `client.chat.generate(...)` with a system prompt and
    a user message.
 2. **The SDK** sends the request to the engine. On the first request it
-   starts the engine and the engine loads the model, which takes 12 to 17
+   starts the engine and the engine loads the model, which takes 10 to 17
    seconds once.
 3. **The engine builds the prompt** by running the chat template stored
    inside the model file. For N-ATLaS that produces the start-of-text token,

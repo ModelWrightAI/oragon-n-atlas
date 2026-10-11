@@ -54,12 +54,13 @@ yunƙurin samun nasara ko ci gaba duk da wahala ko ƙalubale. ...
 
 ## Measured on a laptop
 
-Apple M4 MacBook, 16 GB of memory, **processor only**, Oragon 0.1.2:
+Apple M4 MacBook, 16 GB of memory, **processor only**, Oragon 0.1.2 installed
+from PyPI:
 
 | | |
 |---|---|
 | Model file on disk | 4.9 GB |
-| Time to load the model | 12 to 17 seconds, once per run |
+| Time to load the model | 10 to 17 seconds, once per run |
 | Time to the first word of an answer | 0.2 to 0.7 seconds |
 | Writing speed | 14 tokens per second |
 

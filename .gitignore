@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.DS_Store
+# Model files are large and are fetched, never committed.
+*.gguf
+*.safetensors

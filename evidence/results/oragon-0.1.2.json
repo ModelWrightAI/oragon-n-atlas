@@ -1,0 +1,60 @@
+{
+  "oragon": "0.1.2",
+  "model": "N-ATLaS",
+  "machine": "Darwin arm64",
+  "question": "menene ake nufi da gwagwarmaya",
+  "defines_the_word": 10,
+  "runs": 10,
+  "answers": [
+    {
+      "seed": 0,
+      "repeats_the_question": false,
+      "answer": "Gwagwarmaya na nufin kokarin da ake yi don cimma wani buri, shawo kan kalubale, ko kuma shawo kan matsaloli. Yana dauke da jajircewa, sadaukarwa, da kuma yunƙurin samun nasara duk da wahala. Gabaɗaya ana amfani da wannan kalmar ne don bayyana tsari mai rikitarwa na fuskantar ƙalubale da ci gaba da kok"
+    },
+    {
+      "seed": 1,
+      "repeats_the_question": false,
+      "answer": "Gwagwarmaya na nufin juriya, kokari, ko kuma gwagwarmayar da ake yi don cimma wani buri, shawo kan kalubale, ko samun nasara. Yana dauke da tunanin fuskantar wahalhalu, kalubale, ko gasa ta hanyar amfani da karfin zuciya, ruhin kirkire-kirkire, da azama domin ci gaba da tafiya zuwa ga sakamako mai kyau. Gwag"
+    },
+    {
+      "seed": 2,
+      "repeats_the_question": false,
+      "answer": "Gwagwarmaya na nufin kokarin da ake yi don cimma wani buri, shawo kan kalubale, ko kuma shawo kan matsaloli. Yana dauke da jajircewa, sadaukarwa, da kuma yunƙurin samun nasara duk da wahala. Gabaɗaya ana amfani da wannan kalmar ne don bayyana tsari mai rikitarwa na fuskantar ƙalubale da ci gaba da him"
+    },
+    {
+      "seed": 3,
+      "repeats_the_question": false,
+      "answer": "Gwagwarmaya na nufin juriya, kokari, ko kuma gwagwarmayar da ake yi wajen shawo kan kalubale ko cikas. Yana bayyana halin yunwa don samun nasara, ci gaba, ko kuma tsira duk da wahalhalu."
+    },
+    {
+      "seed": 4,
+      "repeats_the_question": false,
+      "answer": "Gwagwarmaya na nufin kokarin da ake yi don cimma wani buri, shawo kan kalubale, ko kuma shawo kan matsaloli. Yana dauke da jajircewa, sadaukarwa, da kuma yunƙurin samun nasara duk da wahala ko ƙalubale. Gwagwarmaya tana bayyana duka gwaje-gwajen zahiri da kuma tsare-tsaren tunani da mutum ke fusk"
+    },
+    {
+      "seed": 5,
+      "repeats_the_question": false,
+      "answer": "Gwagwarmaya na nufin juriya, kokari, ko kuma gwagwarmayar da ake yi don cimma wani buri, shawo kan kalubale, ko samun nasara. Yana dauke da tunanin fuskantar wahalhalu da kalubale da sha'awar ci gaba da kokarin samun sakamako mai kyau. Gwagwarmaya tana bayyana halayen juriya, azama, da kuma sadaukarwa wajen"
+    },
+    {
+      "seed": 6,
+      "repeats_the_question": false,
+      "answer": "Gwagwarmaya na nufin juriya, kokari, ko kuma gwagwarmayar da ake yi don cimma wani buri, shawo kan kalubale, ko kuma shawo kan matsaloli. Yana dauke da tunanin fuskantar wahala, tsayawa, da kuma ci gaba duk da matsaloli. Gwagwarmaya tana nuna azama, jajircewa, da kuma sadaukar da kai ga burin mutum ko man"
+    },
+    {
+      "seed": 7,
+      "repeats_the_question": false,
+      "answer": "Gwagwarmaya na nufin kokarin da ake yi don cimma wani buri, shawo kan kalubale, ko kuma shawo kan matsaloli. Yana dauke da jajircewa, sadaukarwa, da kuma yunƙurin samun nasara duk da wahala. Gabaɗaya ana amfani da wannan kalmar ne don bayyana tsari mai rikitarwa na fuskantar ƙalubale da ci gaba da kok"
+    },
+    {
+      "seed": 8,
+      "repeats_the_question": false,
+      "answer": "Gwagwarmaya na nufin juriya, kokari, ko kuma gwagwarmayar da ake yi don cimma wani buri, shawo kan kalubale, ko samun nasara. Yana dauke da tunanin fuskantar wahalhalu, kalubale, ko adawa ta hanyar amfani da karfin zuciya, azama, da dabaru domin ci gaba da tafiya, da inganta ci gaban mutum, ilimi, da kwarewa. G"
+    },
+    {
+      "seed": 9,
+      "repeats_the_question": false,
+      "answer": "Gwagwarmaya na nufin kokarin da ake yi don cimma wani buri, shawo kan kalubale ko kuma shawo kan matsaloli. Yana dauke da jajircewa, sadaukarwa, da kuma yunƙurin samun nasara duk da wahala. Gabaɗaya ana amfani da wannan kalmar ne don bayyana tsari mai rikitarwa na fuskantar ƙalubale da ci gaba da himma"
+    }
+  ]
+}

@@ -45,7 +45,7 @@ Oragon runs that template, so N-ATLaS receives exactly this prompt. You can
 print it yourself and compare it with what NCAIR's code produces:
 
 ```sh
-oragon template N-ATLaS
+poetry run oragon template N-ATLaS
 ```
 
 The first line of the output says
@@ -72,8 +72,8 @@ All ten answers are in
 [`results/oragon-0.1.2.json`](results/oragon-0.1.2.json). To repeat it:
 
 ```sh
-pip install "oragon>=0.1.2"
-python evidence/template_check.py
+poetry install
+poetry run python evidence/template_check.py
 ```
 
 ### What this test is and is not
@@ -107,8 +107,8 @@ To build the other levels yourself (each import prints the model name to
 use for the file it made):
 
 ```sh
-oragon import NCAIR1/N-ATLaS --quant q5_k_m
-oragon import NCAIR1/N-ATLaS --quant q8_0
+poetry run oragon import NCAIR1/N-ATLaS --quant q5_k_m
+poetry run oragon import NCAIR1/N-ATLaS --quant q8_0
 ```
 
 ## 3. Speed on a processor

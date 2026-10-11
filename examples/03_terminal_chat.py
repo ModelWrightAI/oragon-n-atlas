@@ -1,13 +1,13 @@
 """A conversation with N-ATLaS in the terminal.
 
-    python examples/03_terminal_chat.py
+    poetry run python examples/03_terminal_chat.py
 
 Type in Hausa, Yoruba, Igbo or English. The conversation is remembered from
 one turn to the next. Press Ctrl-C, or enter an empty line, to stop.
 
 N-ATLaS must be on this machine first. Import it once (see docs/setup.md):
 
-    oragon import NCAIR1/N-ATLaS
+    poetry run oragon import NCAIR1/N-ATLaS
 """
 
 import sys
@@ -22,7 +22,7 @@ SYSTEM = (
 SETTINGS = Settings(temperature=0.1, repeat_penalty=1.12, max_tokens=400)
 NOT_IMPORTED = (
     "N-ATLaS is not on this machine yet. Import it once with:\n\n"
-    "    oragon import NCAIR1/N-ATLaS\n\n"
+    "    poetry run oragon import NCAIR1/N-ATLaS\n\n"
     "That needs a Hugging Face token with access to the model; "
     "docs/setup.md has the steps."
 )

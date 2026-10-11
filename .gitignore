@@ -7,3 +7,4 @@ venv/
 # Model files are large and are fetched, never committed.
 *.gguf
 *.safetensors
+**test.py

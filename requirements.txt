@@ -1,4 +1,0 @@
-# The version this repository was built and measured with.
-oragon>=0.1.2
-# Only for examples/04_openai_client.py.
-openai>=1.0

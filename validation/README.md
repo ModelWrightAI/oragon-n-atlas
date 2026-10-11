@@ -20,11 +20,12 @@ About an hour, most of it waiting for the model to download.
 
 1. Follow [`docs/setup.md`](../docs/setup.md) from the top, on your own
    machine. Note anything unclear, wrong or missing.
-2. Run `python examples/01_chat.py` and confirm you get an answer in Hausa.
-3. Run `python examples/02_four_languages.py`.
-4. Run `python benchmarks/speed.py --save my-machine.json`.
-5. Run `python evidence/template_check.py --save my-check.json`.
-6. Start `oragon serve N-ATLaS`, open `http://127.0.0.1:8080/` in a browser,
+2. Run `poetry run python examples/01_chat.py` and confirm you get an answer
+   in Hausa.
+3. Run `poetry run python examples/02_four_languages.py`.
+4. Run `poetry run python benchmarks/speed.py --save my-machine.json`.
+5. Run `poetry run python evidence/template_check.py --save my-check.json`.
+6. Start `poetry run oragon serve N-ATLaS`, open `http://127.0.0.1:8080/` in a browser,
    and ask the model two or three questions in a Nigerian language you speak.
 7. Fill in [`feedback-form.md`](feedback-form.md).
 
@@ -32,7 +33,8 @@ About an hour, most of it waiting for the model to download.
 
 - The completed feedback form.
 - `my-machine.json` and `my-check.json` from steps 4 and 5.
-- If anything failed: the full error text and the output of `oragon doctor`.
+- If anything failed: the full error text and the output of
+  `poetry run oragon doctor`.
 
 ## How reports are filed
 

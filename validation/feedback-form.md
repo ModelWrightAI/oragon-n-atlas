@@ -14,14 +14,14 @@ them out to be polite.
 - Computer (make and model, or processor):
 - Memory (GB):
 - Operating system and version:
-- Python version (`python --version`):
-- Oragon version (`python -c "import oragon; print(oragon.__version__)"`):
+- Python version (`poetry run python --version`):
+- Oragon version (`poetry run python -c "import oragon; print(oragon.__version__)"`):
 - Does the machine have a GPU you used? (yes / no / not sure):
 
 ## Setup
 
-- Did `pip install` work first time? (yes / no; if no, what happened):
-- Did `oragon import NCAIR1/N-ATLaS` finish? (yes / no; if no, where did it stop):
+- Did `poetry install` work first time? (yes / no; if no, what happened):
+- Did `poetry run oragon import NCAIR1/N-ATLaS` finish? (yes / no; if no, where did it stop):
 - Roughly how long did the import take:
 - Did you have to ask the team for help at any point? (yes / no; if yes, about what):
 - Which step in `docs/setup.md` was least clear:

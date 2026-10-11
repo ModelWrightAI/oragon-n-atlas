@@ -1,10 +1,10 @@
 """Measure N-ATLaS on this machine: load time, time to first word, tokens/s.
 
-    python benchmarks/speed.py                 # processor only
-    python benchmarks/speed.py --gpu           # let the engine use a GPU if present
-    python benchmarks/speed.py --save benchmarks/results/my-machine.json
+    poetry run python benchmarks/speed.py                 # processor only
+    poetry run python benchmarks/speed.py --gpu           # let the engine use a GPU if present
+    poetry run python benchmarks/speed.py --save benchmarks/results/my-machine.json
 
-N-ATLaS must be on this machine first: `oragon import NCAIR1/N-ATLaS`
+N-ATLaS must be on this machine first: `poetry run oragon import NCAIR1/N-ATLaS`
 (see docs/setup.md).
 
 Run it with nothing else heavy running: another program using the processor
@@ -32,7 +32,7 @@ SETTINGS = Settings(temperature=0.1, repeat_penalty=1.12, max_tokens=200, seed=0
 
 NOT_IMPORTED = (
     "N-ATLaS is not on this machine yet. Import it once with:\n\n"
-    "    oragon import NCAIR1/N-ATLaS\n\n"
+    "    poetry run oragon import NCAIR1/N-ATLaS\n\n"
     "That needs a Hugging Face token with access to the model; "
     "docs/setup.md has the steps."
 )

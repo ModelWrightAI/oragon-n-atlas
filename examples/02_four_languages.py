@@ -1,13 +1,13 @@
 """N-ATLaS in Hausa, Yoruba, Igbo and English, streamed as it is written.
 
-    python examples/02_four_languages.py
+    poetry run python examples/02_four_languages.py
 
 Each answer appears word by word, followed by how long the first word took
 and how fast the rest came.
 
 N-ATLaS must be on this machine first. Import it once (see docs/setup.md):
 
-    oragon import NCAIR1/N-ATLaS
+    poetry run oragon import NCAIR1/N-ATLaS
 """
 
 import sys
@@ -23,7 +23,7 @@ SYSTEM = (
 SETTINGS = Settings(temperature=0.1, repeat_penalty=1.12, max_tokens=400)
 NOT_IMPORTED = (
     "N-ATLaS is not on this machine yet. Import it once with:\n\n"
-    "    oragon import NCAIR1/N-ATLaS\n\n"
+    "    poetry run oragon import NCAIR1/N-ATLaS\n\n"
     "That needs a Hugging Face token with access to the model; "
     "docs/setup.md has the steps."
 )

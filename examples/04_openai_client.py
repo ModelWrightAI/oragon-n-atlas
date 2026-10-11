@@ -2,16 +2,15 @@
 
 N-ATLaS must be on this machine first. Import it once (see docs/setup.md):
 
-    oragon import NCAIR1/N-ATLaS
+    poetry run oragon import NCAIR1/N-ATLaS
 
 Then start the server in one terminal:
 
-    oragon serve N-ATLaS
+    poetry run oragon serve N-ATLaS
 
 then, in another:
 
-    pip install openai
-    python examples/04_openai_client.py
+    poetry run python examples/04_openai_client.py
 
 `oragon serve` speaks the OpenAI API, so code written for that API — in any
 language — works against N-ATLaS by changing the address. The same server

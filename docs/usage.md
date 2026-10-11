@@ -117,9 +117,9 @@ asyncio.run(main())
 ## Over HTTP, for any language
 
 ```sh
-oragon serve N-ATLaS                 # this machine only
-oragon serve N-ATLaS --expose        # other machines on your network
-oragon serve N-ATLaS --tunnel        # a public HTTPS link
+poetry run oragon serve N-ATLaS                 # this machine only
+poetry run oragon serve N-ATLaS --expose        # other machines on your network
+poetry run oragon serve N-ATLaS --tunnel        # a public HTTPS link
 ```
 
 | Address | What it is |
@@ -167,6 +167,6 @@ is safe.
 | `EngineBusyError` | Still overloaded after automatic retries. Nothing was started; try again later. |
 | `EngineTimeoutError` | The request took longer than your timeout. |
 
-For anything else, `oragon doctor` prints the machine, the engine and the
+For anything else, `poetry run oragon doctor` prints the machine, the engine and the
 installed models in a form you can paste into a bug report, and
 `ORAGON_DEBUG=1` turns on detailed logging.

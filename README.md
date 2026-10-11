@@ -1,6 +1,6 @@
 # Oragon for N-ATLaS
 
-**Run N-ATLaS on your own computer, with one `pip install`, no GPU and no
+**Run N-ATLaS on your own computer, with one install command, no GPU and no
 internet connection once the model is on disk.**
 
 [N-ATLaS](https://huggingface.co/NCAIR1/N-ATLaS) is Nigeria's open
@@ -73,10 +73,14 @@ You need Python 3.9 to 3.13 on macOS (Apple silicon) or Linux, about 6 GB of
 free memory, and about 36 GB of free disk while the model is being prepared
 (5 GB afterwards). Full details are in [docs/setup.md](docs/setup.md).
 
-**1. Install.**
+**1. Get the code and install.** This repository uses
+[Poetry](https://python-poetry.org/docs/#installation). `poetry install`
+creates an environment with Oragon in it, and `poetry run` runs a command
+inside that environment.
 
 ```sh
-pip install "oragon>=0.1.2"
+git clone https://github.com/OragonLabs/oragon-n-atlas.git && cd oragon-n-atlas
+poetry install
 ```
 
 **2. Get access to N-ATLaS.** The model is gated. Sign in to Hugging Face,
@@ -89,7 +93,7 @@ hour on a home connection and is done once.
 
 ```sh
 export HF_TOKEN=hf_your_token_here
-oragon import NCAIR1/N-ATLaS
+poetry run oragon import NCAIR1/N-ATLaS
 ```
 
 The examples load the model by the name `N-ATLaS`. They do not download it,
@@ -98,9 +102,11 @@ so this step has to come before any of them.
 **4. Run it.**
 
 ```sh
-git clone https://github.com/OragonLabs/oragon-n-atlas.git && cd oragon-n-atlas
-python examples/01_chat.py
+poetry run python examples/01_chat.py
 ```
+
+Not using Poetry? `pip install "oragon>=0.1.2" openai` gives you the same
+packages; then leave `poetry run` off every command.
 
 ## Examples
 
@@ -114,7 +120,7 @@ python examples/01_chat.py
 ## The server and the playground
 
 ```sh
-oragon serve N-ATLaS
+poetry run oragon serve N-ATLaS
 ```
 
 This starts an OpenAI-compatible API on `http://127.0.0.1:8080/v1` and a

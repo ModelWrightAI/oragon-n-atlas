@@ -14,31 +14,48 @@ minutes, nearly all of it waiting for the download.
 | **GPU** | Not needed. If one is present it is used, unless you ask for the processor only. |
 | **Internet** | Needed once, to install and to download the model. Not needed to run it. |
 
-## 1. Install Oragon
+## 1. Get the code and install
 
-A virtual environment keeps this separate from your other Python work.
+This repository uses [Poetry](https://python-poetry.org/docs/#installation)
+to install what it needs. If you do not have Poetry yet, follow that link
+first.
 
 ```sh
-python3 -m venv .venv
-source .venv/bin/activate
-pip install "oragon>=0.1.2"
+git clone https://github.com/OragonLabs/oragon-n-atlas.git
+cd oragon-n-atlas
+poetry install
 ```
+
+`poetry install` creates a separate Python environment for this project and
+installs Oragon into it, at the versions recorded in `poetry.lock`. Every
+command in this guide starts with `poetry run`, which runs it inside that
+environment.
 
 Check the version. Everything in this repository was built and measured with
 0.1.2, so it must be 0.1.2 or later.
 
 ```sh
-python -c "import oragon; print(oragon.__version__)"
+poetry run python -c "import oragon; print(oragon.__version__)"
 ```
 
-If this prints `0.0.1`, your platform or Python version is not supported yet
-and pip has installed a placeholder.
+If `poetry install` says it cannot find a matching `oragon`, your platform or
+Python version is not supported yet (see the table above).
 
 `oragon doctor` reports what the machine has and what it can run:
 
 ```sh
-oragon doctor
+poetry run oragon doctor
 ```
+
+### Without Poetry
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+pip install "oragon>=0.1.2" openai
+```
+
+Then leave `poetry run` off every command below.
 
 ## 2. Get access to N-ATLaS
 
@@ -59,7 +76,7 @@ Keep the token out of your code and out of version control.
 ## 3. Import the model
 
 ```sh
-oragon import NCAIR1/N-ATLaS
+poetry run oragon import NCAIR1/N-ATLaS
 ```
 
 This does three things, and shows progress for each:
@@ -95,7 +112,7 @@ model's own template is being executed, and the prompt should begin with
 `<|begin_of_text|>` and contain the two date lines:
 
 ```sh
-oragon template N-ATLaS
+poetry run oragon template N-ATLaS
 ```
 
 ```text
@@ -114,7 +131,7 @@ You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
 Then ask it something:
 
 ```sh
-python examples/01_chat.py
+poetry run python examples/01_chat.py
 ```
 
 Every run spends its first 10 to 17 seconds loading the model before it

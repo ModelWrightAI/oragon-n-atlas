@@ -1,0 +1,22 @@
+[project]
+name = "oragon-n-atlas"
+version = "0.1.0"
+description = "Run N-ATLaS, Nigeria's multilingual model, on your own computer with the Oragon SDK: examples, benchmarks and evidence."
+authors = [{ name = "Oragon Labs", email = "hello@oragonlabs.com" }]
+readme = "README.md"
+# The Python versions Oragon publishes for.
+requires-python = ">=3.9,<3.14"
+dependencies = [
+    # The version this repository was built and measured with.
+    "oragon>=0.1.2",
+    # Only examples/04_openai_client.py uses this.
+    "openai>=1.0",
+]
+
+[tool.poetry]
+# Programs to run, not a library to install.
+package-mode = false
+
+[build-system]
+requires = ["poetry-core>=2.0"]
+build-backend = "poetry.core.masonry.api"

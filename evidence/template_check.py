@@ -1,7 +1,7 @@
 """Does N-ATLaS answer the question it was asked? A test anyone can repeat.
 
-    python evidence/template_check.py
-    python evidence/template_check.py --save evidence/results/oragon-0.1.2.json
+    poetry run python evidence/template_check.py
+    poetry run python evidence/template_check.py --save evidence/results/oragon-0.1.2.json
 
 It asks one Hausa question, "menene ake nufi da gwagwarmaya" (what is meant
 by "gwagwarmaya" — struggle), ten times with ten different seeds, at the
@@ -15,7 +15,7 @@ answers themselves are saved for a Hausa speaker to read.
 
 Our result with Oragon 0.1.2: the word is defined in 10 of 10 runs.
 
-N-ATLaS must be on this machine first: `oragon import NCAIR1/N-ATLaS`
+N-ATLaS must be on this machine first: `poetry run oragon import NCAIR1/N-ATLaS`
 (see docs/setup.md).
 """
 
@@ -36,7 +36,7 @@ QUESTION = "menene ake nufi da gwagwarmaya"
 SEEDS = range(10)
 NOT_IMPORTED = (
     "N-ATLaS is not on this machine yet. Import it once with:\n\n"
-    "    oragon import NCAIR1/N-ATLaS\n\n"
+    "    poetry run oragon import NCAIR1/N-ATLaS\n\n"
     "That needs a Hugging Face token with access to the model; "
     "docs/setup.md has the steps."
 )

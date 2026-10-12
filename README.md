@@ -52,7 +52,7 @@ yunƙurin samun nasara ko ci gaba duk da wahala ko ƙalubale. ...
 | **An OpenAI-compatible API** | `oragon serve N-ATLaS` — any OpenAI client, in any language, can use the model |
 | **A browser playground** | at `http://127.0.0.1:8080/` while the server runs; works with no internet |
 | **One-command import** | `oragon import NCAIR1/N-ATLaS` fetches NCAIR's official checkpoint and prepares it |
-| **The model's own prompt format** | N-ATLaS is given exactly the prompt its publishers' code gives it — see [the evidence](evidence/README.md) |
+| **The model's own prompt format** | N-ATLaS is given exactly the prompt its publishers' code gives it — see [the prompt](#the-prompt-n-atlas-is-given) and [the evidence](evidence/README.md) |
 | **No GPU required** | 14 tokens per second on a laptop processor; a GPU is used if you have one |
 | **Nothing leaves the machine** | no telemetry, and your prompts and answers are never sent anywhere |
 
@@ -132,6 +132,206 @@ playground page at `http://127.0.0.1:8080/`: a chat pane, and a live view of
 tokens per second and requests in progress. Add `--expose` to let other
 machines on your network use it, or `--tunnel` for a public HTTPS link; both
 create an access token for you.
+
+## The prompt N-ATLaS is given
+
+You do not write the prompt format. Oragon runs the chat template stored in
+the model, the same one NCAIR's reference code uses.
+
+### A simple example
+
+You send two messages:
+
+```text
+system: You are a helpful assistant.
+user: Say hello.
+```
+
+The template turns them into one piece of text. This is what N-ATLaS reads:
+
+```text
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 12 Oct 2026
+
+You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Say hello.<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+```
+
+Reading it piece by piece:
+
+- `<|begin_of_text|>` marks the start of the prompt.
+- `<|start_header_id|>system<|end_header_id|>` says who speaks next:
+  `system`, `user` or `assistant`.
+- `<|eot_id|>` ends that speaker's turn.
+- The two date lines come from the template. You did not send them.
+  `Today Date` is the day the prompt is built, so yours will differ.
+- The prompt ends with an open `assistant` header and a blank line, so the
+  next thing written is the model's answer.
+
+To print this on your own machine:
+
+```sh
+poetry run oragon template N-ATLaS
+```
+
+It prints the example above and then the template below. The second line of
+its output should read
+`template-source: the model's own template (tokenizer.chat_template), executed`,
+which confirms that the model's own template was run, not a copy of it.
+
+### The raw chat template
+
+This is the template exactly as it is stored in the model. It is a small
+program in the Jinja language. It is shown here in five parts, in order, with
+a note above each. Nothing has been changed: where one part ends and the next
+begins, the model's file has a single blank line.
+
+**Part 1. Start of text, and defaults.** The first line writes
+`<|begin_of_text|>`. The rest fills in values the caller left out: no tools,
+and a fallback date that is used only when no date is supplied. Oragon
+supplies today's date.
+
+```jinja
+{{- bos_token }}
+{%- if custom_tools is defined %}
+    {%- set tools = custom_tools %}
+{%- endif %}
+{%- if not tools_in_user_message is defined %}
+    {%- set tools_in_user_message = true %}
+{%- endif %}
+{%- if not date_string is defined %}
+    {%- set date_string = "26 Jul 2024" %}
+{%- endif %}
+{%- if not tools is defined %}
+    {%- set tools = none %}
+{%- endif %}
+```
+
+**Part 2. Find the system message.** If the first message is a system
+message, it is taken off the list and kept for part 3.
+
+```jinja
+{#- This block extracts the system message, so we can slot it into the right place. #}
+{%- if messages[0]['role'] == 'system' %}
+    {%- set system_message = messages[0]['content']|trim %}
+    {%- set messages = messages[1:] %}
+{%- else %}
+    {%- set system_message = "" %}
+{%- endif %}
+```
+
+**Part 3. Write the system turn.** Writes the `system` header, the two date
+lines and your system message, then ends the turn. The lines that mention
+tools run only when tools are passed.
+
+```jinja
+{#- System message + builtin tools #}
+{{- "<|start_header_id|>system<|end_header_id|>\n\n" }}
+{%- if builtin_tools is defined or tools is not none %}
+    {{- "Environment: ipython\n" }}
+{%- endif %}
+{%- if builtin_tools is defined %}
+    {{- "Tools: " + builtin_tools | reject('equalto', 'code_interpreter') | join(", ") + "\n\n"}}
+{%- endif %}
+{{- "Cutting Knowledge Date: December 2023\n" }}
+{{- "Today Date: " + date_string + "\n\n" }}
+{%- if tools is not none and not tools_in_user_message %}
+    {{- "You have access to the following functions. To call a function, please respond with JSON for a function call." }}
+    {{- 'Respond in the format {"name": function name, "parameters": dictionary of argument name and its value}.' }}
+    {{- "Do not use variables.\n\n" }}
+    {%- for t in tools %}
+        {{- t | tojson(indent=4) }}
+        {{- "\n\n" }}
+    {%- endfor %}
+{%- endif %}
+{{- system_message }}
+{{- "<|eot_id|>" }}
+```
+
+**Part 4. Tools, if any.** Runs only when tools are passed: their
+descriptions are written into the first user message. With no tools, this
+part writes nothing.
+
+```jinja
+{#- Custom tools are passed in a user message with some extra guidance #}
+{%- if tools_in_user_message and not tools is none %}
+    {#- Extract the first user message so we can plug it in here #}
+    {%- if messages | length != 0 %}
+        {%- set first_user_message = messages[0]['content']|trim %}
+        {%- set messages = messages[1:] %}
+    {%- else %}
+        {{- raise_exception("Cannot put tools in the first user message when there's no first user message!") }}
+{%- endif %}
+    {{- '<|start_header_id|>user<|end_header_id|>\n\n' -}}
+    {{- "Given the following functions, please respond with a JSON for a function call " }}
+    {{- "with its proper arguments that best answers the given prompt.\n\n" }}
+    {{- 'Respond in the format {"name": function name, "parameters": dictionary of argument name and its value}.' }}
+    {{- "Do not use variables.\n\n" }}
+    {%- for t in tools %}
+        {{- t | tojson(indent=4) }}
+        {{- "\n\n" }}
+    {%- endfor %}
+    {{- first_user_message + "<|eot_id|>"}}
+{%- endif %}
+```
+
+**Part 5. Every other message, then the assistant's turn.** Each remaining
+message is written as a header, its text and `<|eot_id|>`. The longer
+branches handle tool calls and tool results. The last three lines open the
+assistant's turn, where the answer goes.
+
+```jinja
+{%- for message in messages %}
+    {%- if not (message.role == 'ipython' or message.role == 'tool' or 'tool_calls' in message) %}
+        {{- '<|start_header_id|>' + message['role'] + '<|end_header_id|>\n\n'+ message['content'] | trim + '<|eot_id|>' }}
+    {%- elif 'tool_calls' in message %}
+        {%- if not message.tool_calls|length == 1 %}
+            {{- raise_exception("This model only supports single tool-calls at once!") }}
+        {%- endif %}
+        {%- set tool_call = message.tool_calls[0].function %}
+        {%- if builtin_tools is defined and tool_call.name in builtin_tools %}
+            {{- '<|start_header_id|>assistant<|end_header_id|>\n\n' -}}
+            {{- "<|python_tag|>" + tool_call.name + ".call(" }}
+            {%- for arg_name, arg_val in tool_call.arguments | items %}
+                {{- arg_name + '="' + arg_val + '"' }}
+                {%- if not loop.last %}
+                    {{- ", " }}
+                {%- endif %}
+                {%- endfor %}
+            {{- ")" }}
+        {%- else  %}
+            {{- '<|start_header_id|>assistant<|end_header_id|>\n\n' -}}
+            {{- '{"name": "' + tool_call.name + '", ' }}
+            {{- '"parameters": ' }}
+            {{- tool_call.arguments | tojson }}
+            {{- "}" }}
+        {%- endif %}
+        {%- if builtin_tools is defined %}
+            {#- This means we're in ipython mode #}
+            {{- "<|eom_id|>" }}
+        {%- else %}
+            {{- "<|eot_id|>" }}
+        {%- endif %}
+    {%- elif message.role == "tool" or message.role == "ipython" %}
+        {{- "<|start_header_id|>ipython<|end_header_id|>\n\n" }}
+        {%- if message.content is mapping or message.content is iterable %}
+            {{- message.content | tojson }}
+        {%- else %}
+            {{- message.content }}
+        {%- endif %}
+        {{- "<|eot_id|>" }}
+    {%- endif %}
+{%- endfor %}
+{%- if add_generation_prompt %}
+    {{- '<|start_header_id|>assistant<|end_header_id|>\n\n' }}
+{%- endif %}
+```
+
+How we tested that this gives correct answers is in
+[the evidence](evidence/README.md).
 
 ## What is in this repository
 

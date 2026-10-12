@@ -171,3 +171,10 @@ already are, on their own machines, with no GPU required.
 N-ATLaS is the work of NCAIR and Awarri Technologies. This repository
 contains no model weights; you download them from the publishers under their
 terms.
+
+## Licence and contributing
+
+The code, examples and documentation here are released under the
+[MIT licence](LICENSE). The Oragon SDK and engine are installed from PyPI
+under their own licence. To report a problem or suggest a change, see
+[CONTRIBUTING.md](CONTRIBUTING.md).

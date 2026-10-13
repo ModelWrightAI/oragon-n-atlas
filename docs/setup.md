@@ -14,7 +14,13 @@ minutes, nearly all of it waiting for the download.
 | **GPU** | Not needed. If one is present it is used, unless you ask for the processor only. |
 | **Internet** | Needed once, to install and to download the model. Not needed to run it. |
 
-## 1. Get the code and install
+## 1. Install Oragon
+
+There are two ways in. To run the examples in this repository, follow the
+steps just below. To add N-ATLaS to a project of your own, skip to
+[In your own project](#in-your-own-project).
+
+### In this repository
 
 This repository uses [Poetry](https://python-poetry.org/docs/#installation)
 to install what it needs. If you do not have Poetry yet, follow that link
@@ -47,15 +53,37 @@ Python version is not supported yet (see the table above).
 poetry run oragon doctor
 ```
 
-### Without Poetry
+### In your own project
+
+You do not need this repository to use N-ATLaS. Install Oragon into your own
+project, then carry on from step 2.
+
+With pip:
 
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate
-pip install "oragon>=0.1.2" openai
+pip install oragon
 ```
 
-Then leave `poetry run` off every command below.
+Then leave `poetry run` off every command below: type
+`oragon import NCAIR1/N-ATLaS`, not `poetry run oragon import NCAIR1/N-ATLaS`.
+
+With Poetry:
+
+```sh
+poetry add oragon
+```
+
+Keep `poetry run` in front of every command below, as written.
+
+Either way, add the `openai` package (`pip install openai` or
+`poetry add openai`) only if you want to call the server with the OpenAI
+client library, as `examples/04_openai_client.py` does.
+
+Where step 4 runs `examples/01_chat.py`, run your own program instead. The
+code at the top of the [README](../README.md) is a complete one to start
+from.
 
 ## 2. Get access to N-ATLaS
 

@@ -14,8 +14,16 @@ plain server can build on it.
 This is our entry for the National AI Innovation Challenge 2026, *Build with
 N-ATLAS*, under **Developer Infrastructure**.
 
-Once the model has been imported (a single command, shown under
-[Quick start](#quick-start)), this is all the code it takes:
+Install Oragon and import the model, once
+([Quick start](#quick-start) explains each step):
+
+```sh
+pip install oragon                    # in a Poetry project: poetry add oragon
+export HF_TOKEN=hf_your_token_here    # N-ATLaS is gated on Hugging Face
+oragon import NCAIR1/N-ATLaS          # one time, about half an hour
+```
+
+Then this is all the code it takes:
 
 ```python
 from oragon import Engine, Oragon, Settings, system, user
@@ -77,14 +85,41 @@ You need Python 3.9 to 3.13 on macOS (Apple silicon) or Linux, about 6 GB of
 free memory, and about 36 GB of free disk while the model is being prepared
 (5 GB afterwards). Full details are in [docs/setup.md](docs/setup.md).
 
-**1. Get the code and install.** This repository uses
-[Poetry](https://python-poetry.org/docs/#installation). `poetry install`
-creates an environment with Oragon in it, and `poetry run` runs a command
-inside that environment.
+**1. Install Oragon.** Pick the one that fits. Each installs the `oragon`
+Python package and the `oragon` command.
+
+In your own project, with pip:
+
+```sh
+python3 -m venv .venv && source .venv/bin/activate
+pip install oragon
+```
+
+In your own project, with [Poetry](https://python-poetry.org/docs/#installation):
+
+```sh
+poetry add oragon
+```
+
+To run the examples in this repository, clone it and let Poetry install
+Oragon for you. This also installs the `openai` package, which only
+`examples/04_openai_client.py` uses.
 
 ```sh
 git clone https://github.com/OragonLabs/oragon-n-atlas.git && cd oragon-n-atlas
 poetry install
+```
+
+The commands on the rest of this page start with `poetry run`, which runs
+them inside the Poetry environment. **If you installed with pip, leave
+`poetry run` off**: type `oragon import NCAIR1/N-ATLaS`, not
+`poetry run oragon import NCAIR1/N-ATLaS`.
+
+Check that it is installed. This prints the Oragon version and what your
+machine can run:
+
+```sh
+poetry run oragon doctor
 ```
 
 **2. Get access to N-ATLaS.** The model is gated. Sign in to Hugging Face,
@@ -100,17 +135,24 @@ export HF_TOKEN=hf_your_token_here
 poetry run oragon import NCAIR1/N-ATLaS
 ```
 
-The examples load the model by the name `N-ATLaS`. They do not download it,
-so this step has to come before any of them.
+Your code and the examples load the model by the name `N-ATLaS`. They do not
+download it, so this step has to come before you run anything.
 
-**4. Run it.**
+**4. Run it.** In your own project, save the code at the top of this page as
+`chat.py` and run it:
+
+```sh
+poetry run python chat.py
+```
+
+In this repository, run the first example:
 
 ```sh
 poetry run python examples/01_chat.py
 ```
 
-Not using Poetry? `pip install "oragon>=0.1.2" openai` gives you the same
-packages; then leave `poetry run` off every command.
+The first 10 to 17 seconds are the model loading; then the answer appears
+word by word.
 
 ## Examples
 
